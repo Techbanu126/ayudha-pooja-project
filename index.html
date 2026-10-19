@@ -44,6 +44,12 @@ button:active{transform:scale(.97)}
 .rg{fill:none;stroke:#c9ab88;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
 .blow .rg{animation:rg 1.8s infinite}.blow .rg:nth-of-type(2){animation-delay:.6s}.blow .rg:nth-of-type(3){animation-delay:1.2s}
 @keyframes rg{0%{opacity:.8;transform:scale(.3)}100%{opacity:0;transform:scale(4)}}
+#sgw{position:relative;width:min(62vw,280px);display:flex;justify-content:center;align-items:center}
+#sgimg{width:100%;display:block;pointer-events:none;filter:drop-shadow(0 8px 10px rgba(0,0,0,.18))}
+.blow #sgimg{animation:wob .25s infinite alternate}
+.rgd{position:absolute;left:50%;top:50%;width:70%;aspect-ratio:1;border:2px solid #c9ab88;border-radius:50%;opacity:0;pointer-events:none}
+.blow .rgd{animation:rgd 1.8s infinite}.blow .rgd:nth-of-type(2){animation-delay:.6s}.blow .rgd:nth-of-type(3){animation-delay:1.2s}
+@keyframes rgd{0%{opacity:.8;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}}
 </style></head><body>
 <div class="screen on" id="home">
   <h1>🪔 ஆயுத பூஜை</h1><p class="sub">பூஜை பொருளைத் தேர்ந்தெடுங்கள்</p>
@@ -69,11 +75,7 @@ button:active{transform:scale(.97)}
   <div class="orbit" id="cwrap"><img class="base" src="assets/asset_4_093542.webp" alt="karpoora aarti"><img class="flame" src="assets/asset_5_01268e.webp" style="left:25.74%;bottom:33.71%;width:30.65%" alt=""></div>
   <div class="hint" id="chint">தொட்டால் ஆரத்தி சுற்றும் 🔥</div></div>
 <div class="screen" id="sangu"><button class="back">← முகப்பு</button>
-  <div id="sgw"><svg id="sg" viewBox="0 0 320 200"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset=".6" stop-color="#f1dfca"/><stop offset="1" stop-color="#d4b896"/></linearGradient><radialGradient id="cm"><stop offset="0" stop-color="#f6b3a4"/><stop offset="1" stop-color="#e08876"/></radialGradient></defs>
-  <circle class="rg" cx="300" cy="96" r="10"/><circle class="rg" cx="300" cy="96" r="10"/><circle class="rg" cx="300" cy="96" r="10"/>
-  <g id="sgb"><path d="M40 112C38 56 108 24 176 44C226 58 276 82 296 96C276 110 238 118 208 130C162 162 90 168 56 142C46 134 41 124 40 112Z" fill="url(#cg)" stroke="#c9ab88" stroke-width="2"/>
-  <path d="M70 70C110 52 160 52 205 72M62 92C110 74 170 76 240 96M60 114C110 98 170 104 230 112M70 136C115 124 160 126 205 128" fill="none" stroke="#d9bfa0" stroke-width="2"/>
-  <ellipse cx="52" cy="112" rx="14" ry="27" fill="url(#cm)" stroke="#c9ab88" stroke-width="2"/><circle cx="296" cy="96" r="5" fill="#8a6a4a"/></g></svg></div>
+  <div id="sgw"><div class="rgd"></div><div class="rgd"></div><div class="rgd"></div><img id="sgimg" src="assets/conch_cut.webp" alt="sangu"></div>
   <div class="hint" id="shint">சங்கைத் தொட்டால் ஊதும் 🐚</div></div>
 <div class="screen" id="malar"><div class="big">🙏</div><canvas id="fc"></canvas><button class="back" style="z-index:3">← முகப்பு</button>
   <div class="hint" style="z-index:3">தொட்டு மலர் தூவுங்கள் 🌼</div></div>
@@ -130,22 +132,22 @@ function stopFx(){fx.forEach(function(n){try{n.stop()}catch(e){}try{n.disconnect
 function noiseBuf(a){var b=a.createBuffer(1,a.sampleRate,a.sampleRate),d=b.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b}
 function reverb(a,src){var dl=a.createDelay(1);dl.delayTime.value=.17;var fb=a.createGain();fb.gain.value=.38;var w=a.createGain();w.gain.value=.35;
   src.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(w);w.connect(a.destination)}
-// Conch
-var conchOn=false;
+var CONCH="assets/conch.mp3";
+// Conch (real recording)
+var conchOn=false,cbuf=null,cstart=0;
+function loadAudio(uri,cb){var a=ctx();if(!a)return;
+  function dec(ab){a.decodeAudioData(ab,cb,function(){})}
+  if(uri.indexOf("data:")===0){var s=atob(uri.split(",")[1]),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);dec(u.buffer)}
+  else fetch(uri).then(function(r){return r.arrayBuffer()}).then(dec).catch(function(){})}
 function blowConch(){
-  var a=ctx();if(!a)return;stopFx();conchOn=true;var t=a.currentTime,D=4.4;
-  var out=a.createGain();out.gain.setValueAtTime(0,t);out.gain.linearRampToValueAtTime(.5,t+.7);out.gain.setValueAtTime(.5,t+D-1.2);out.gain.linearRampToValueAtTime(0,t+D);
-  var lp=a.createBiquadFilter();lp.type="lowpass";lp.frequency.setValueAtTime(700,t);lp.frequency.linearRampToValueAtTime(1700,t+1);lp.Q.value=3;
-  var pk=a.createBiquadFilter();pk.type="peaking";pk.frequency.value=620;pk.gain.value=9;pk.Q.value=1.5;
-  lp.connect(pk);pk.connect(out);out.connect(a.destination);reverb(a,out);
-  var lfo=a.createOscillator();lfo.frequency.value=5.2;var lg=a.createGain();lg.gain.value=3;lfo.connect(lg);lfo.start(t);lfo.stop(t+D+.1);reg(lfo);
-  [[1,"sawtooth",.5],[1.004,"sawtooth",.35],[2.003,"square",.12],[.5,"sine",.25]].forEach(function(p){
-    var o=a.createOscillator();o.type=p[1];o.frequency.setValueAtTime(205*p[0],t);o.frequency.exponentialRampToValueAtTime(234*p[0],t+.45);
-    lg.connect(o.frequency);var g=a.createGain();g.gain.value=p[2];o.connect(g);g.connect(lp);o.start(t);o.stop(t+D+.1);reg(o)});
-  var n=a.createBufferSource();n.buffer=noiseBuf(a);n.loop=true;var bp=a.createBiquadFilter();bp.type="bandpass";bp.frequency.value=1800;var ng=a.createGain();ng.gain.value=.09;
-  n.connect(bp);bp.connect(ng);ng.connect(out);n.start(t);n.stop(t+D);reg(n);
-  var sg=document.getElementById("sangu");sg.classList.add("blow");if(navigator.vibrate)navigator.vibrate([200,60,500]);
-  setTimeout(function(){if(conchOn){sg.classList.remove("blow");conchOn=false}},D*1000);
+  var a=ctx();if(!a)return;
+  if(conchOn){stopFx();return}
+  if(!cbuf){loadAudio(CONCH,function(d){cbuf=d;blowConch()});return}
+  stopFx();conchOn=true;
+  var s=a.createBufferSource();s.buffer=cbuf;var g=a.createGain();g.gain.value=.95;s.connect(g);g.connect(a.destination);s.start();reg(s);
+  s.onended=function(){if(conchOn){conchOn=false;document.getElementById("sangu").classList.remove("blow");document.getElementById("shint").textContent="சங்கைத் தொட்டால் ஊதும் 🐚"}};
+  document.getElementById("sangu").classList.add("blow");document.getElementById("shint").textContent="மீண்டும் தொட்டால் நிற்கும்";
+  if(navigator.vibrate)navigator.vibrate([200,60,500]);
 }
 document.getElementById("sgw").onclick=blowConch;
 // Flowers
