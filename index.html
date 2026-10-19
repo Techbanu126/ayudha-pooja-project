@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ta"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ஆயுத பூஜை</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--gold:#b8860b;--ink:#4a2c00}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#fff;color:var(--ink);font-family:system-ui,"Noto Sans Tamil",sans-serif;-webkit-user-select:none;user-select:none;touch-action:manipulation;overflow:hidden}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.screen.on{display:flex}
+h1{font-size:30px;margin:0 0 6px;color:var(--gold)}
+.sub{margin:0 0 28px;opacity:.7;font-size:15px}
+.menu{display:flex;flex-direction:column;gap:14px;width:min(86vw,340px)}
+.menu button{display:flex;align-items:center;gap:14px;font-size:20px;padding:12px 16px;border:2px solid var(--gold);border-radius:18px;background:#fffaf0;color:var(--ink);text-align:left}
+.menu img{height:56px;width:56px;object-fit:contain}
+button:active{transform:scale(.97)}
+.back{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);left:14px;font-size:16px;padding:8px 14px;border:2px solid var(--gold);border-radius:12px;background:#fff;color:var(--ink)}
+.hint{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);font-size:15px;opacity:.7;text-align:center;padding:0 16px}
+#bellWrap{height:min(68vh,520px);transform-origin:50% 22%;will-change:transform}
+#bellWrap img{height:100%;display:block;pointer-events:none}
+.lamp{position:relative;margin-top:90px}
+.lamp img{width:100%;display:block;pointer-events:none}
+#d1{width:min(72vw,330px)}#d2{width:min(94vw,520px)}
+.flame{position:absolute;bottom:calc(100% - 4px);transform:translateX(-50%);transform-origin:50% 100%;mix-blend-mode:multiply;height:auto;animation:fl .28s infinite alternate;transition:opacity .3s;pointer-events:none}
+@keyframes fl{0%{transform:translateX(-50%) scale(1,1) skewX(-1.5deg)}50%{transform:translateX(-50%) scale(.96,1.05) skewX(2deg)}100%{transform:translateX(-50%) scale(1.03,.97) skewX(-.5deg)}}
+.flame.off{opacity:0;animation:none}
+.orbit{width:min(84vw,420px);position:relative}.orbit img.base{width:100%;display:block;pointer-events:none}
+.orbit.go{animation:orbit 2.4s linear infinite}
+@keyframes orbit{from{transform:rotate(0) translateX(38px) rotate(0)}to{transform:rotate(360deg) translateX(38px) rotate(-360deg)}}
+
+#home h1{margin-top:auto}#home .menu{margin-bottom:auto}#home{overflow-y:auto;justify-content:flex-start}
+.menu{flex-direction:row!important;flex-wrap:wrap;justify-content:center;gap:12px!important;width:min(92vw,380px)!important}
+.menu button{width:calc(50% - 6px);flex-direction:column;text-align:center!important;justify-content:center;padding:14px 8px!important;font-size:16px!important;gap:8px!important;box-shadow:0 3px 10px rgba(184,134,11,.18)}
+.menu img{height:60px!important;width:60px!important}.ic{font-size:44px;line-height:60px;height:60px}
+#d1l{margin-top:70px}#d2l{margin-top:50px}
+.sub{text-align:center}
+#fc{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.big{font-size:96px;opacity:.9}
+.row{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.row button{font-size:17px;padding:12px 18px;border:2px solid var(--gold);border-radius:14px;background:#fffaf0;color:var(--ink)}
+.mt{width:min(88vw,380px);border:2px solid var(--gold);border-radius:18px;padding:16px;background:#fffaf0;font-size:20px;line-height:1.9;text-align:center}
+.mt div{opacity:.55;transition:all .3s}.mt div.on{opacity:1;color:#c2410c;font-weight:600}
+#sg{width:min(88vw,420px);height:auto}.blow #sgb{animation:wob .25s infinite alternate}
+@keyframes wob{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+.rg{fill:none;stroke:#c9ab88;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center}
+.blow .rg{animation:rg 1.8s infinite}.blow .rg:nth-of-type(2){animation-delay:.6s}.blow .rg:nth-of-type(3){animation-delay:1.2s}
+@keyframes rg{0%{opacity:.8;transform:scale(.3)}100%{opacity:0;transform:scale(4)}}
+</style></head><body>
+<div class="screen on" id="home">
+  <h1>🪔 ஆயுத பூஜை</h1><p class="sub">பூஜை பொருளைத் தேர்ந்தெடுங்கள்</p>
+  <div class="menu">
+    <button data-go="bell"><img src="assets/asset_1_007ddb.webp" alt="">மணி (Bell)</button>
+    <button data-go="d1"><img src="assets/asset_2_aeb735.webp" alt="">தீபம் (Deepam)</button>
+    <button data-go="d2"><img src="assets/asset_3_c22b20.webp" alt="">ஆரத்தி தீபம்</button>
+    <button data-go="c"><img src="assets/asset_4_093542.webp" alt="">கற்பூர ஆரத்தி</button>
+    <button data-go="sangu"><span class="ic">🐚</span>சங்கு</button>
+    <button data-go="malar"><span class="ic">🌼</span>மலர்</button>
+  </div>
+</div>
+<div class="screen" id="bell"><button class="back">← முகப்பு</button>
+  <div id="bellWrap"><img src="assets/asset_1_007ddb.webp" alt="bell"></div>
+  <div class="hint" id="bhint">போனை அசையுங்கள் 📳 · அல்லது மணியைத் தொடுங்கள்</div></div>
+<div class="screen" id="d1"><button class="back">← முகப்பு</button>
+  <div class="lamp" id="d1l" style="width:min(72vw,330px)"><img class="flame" src="assets/asset_5_01268e.webp" style="left:49.3%;width:19%" alt=""><img src="assets/asset_2_aeb735.webp" alt="deepam"></div>
+  <div class="hint">தீபத்தைத் தொட்டு ஏற்றலாம்/அணைக்கலாம்</div></div>
+<div class="screen" id="d2"><button class="back">← முகப்பு</button>
+  <div class="lamp" id="d2l" style="width:min(94vw,520px)"><img class="flame" src="assets/asset_5_01268e.webp" style="left:23.200000000000003%;width:8%" alt=""><img src="assets/asset_3_c22b20.webp" alt="aarti deepam"></div>
+  <div class="hint">தீபத்தைத் தொட்டு ஏற்றலாம்/அணைக்கலாம்</div></div>
+<div class="screen" id="c"><button class="back">← முகப்பு</button>
+  <div class="orbit" id="cwrap"><img class="base" src="assets/asset_4_093542.webp" alt="karpoora aarti"><img class="flame" src="assets/asset_5_01268e.webp" style="left:25.74%;bottom:33.71%;width:30.65%" alt=""></div>
+  <div class="hint" id="chint">தொட்டால் ஆரத்தி சுற்றும் 🔥</div></div>
+<div class="screen" id="sangu"><button class="back">← முகப்பு</button>
+  <div id="sgw"><svg id="sg" viewBox="0 0 320 200"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf0"/><stop offset=".6" stop-color="#f1dfca"/><stop offset="1" stop-color="#d4b896"/></linearGradient><radialGradient id="cm"><stop offset="0" stop-color="#f6b3a4"/><stop offset="1" stop-color="#e08876"/></radialGradient></defs>
+  <circle class="rg" cx="300" cy="96" r="10"/><circle class="rg" cx="300" cy="96" r="10"/><circle class="rg" cx="300" cy="96" r="10"/>
+  <g id="sgb"><path d="M40 112C38 56 108 24 176 44C226 58 276 82 296 96C276 110 238 118 208 130C162 162 90 168 56 142C46 134 41 124 40 112Z" fill="url(#cg)" stroke="#c9ab88" stroke-width="2"/>
+  <path d="M70 70C110 52 160 52 205 72M62 92C110 74 170 76 240 96M60 114C110 98 170 104 230 112M70 136C115 124 160 126 205 128" fill="none" stroke="#d9bfa0" stroke-width="2"/>
+  <ellipse cx="52" cy="112" rx="14" ry="27" fill="url(#cm)" stroke="#c9ab88" stroke-width="2"/><circle cx="296" cy="96" r="5" fill="#8a6a4a"/></g></svg></div>
+  <div class="hint" id="shint">சங்கைத் தொட்டால் ஊதும் 🐚</div></div>
+<div class="screen" id="malar"><div class="big">🙏</div><canvas id="fc"></canvas><button class="back" style="z-index:3">← முகப்பு</button>
+  <div class="hint" style="z-index:3">தொட்டு மலர் தூவுங்கள் 🌼</div></div>
+<script>
+var AC=null,active="home";
+function ctx(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+var LOOP="assets/asset_6_b76a58.wav",buf=null,src=null,gn=null,playing=false,lastLoud=0;
+function initAudio(){var a=ctx();if(!a||buf)return;fetch(LOOP).then(function(r){return r.arrayBuffer()}).then(function(b){a.decodeAudioData(b,function(d){buf=d})}).catch(function(){})}
+function startLoop(){var a=ctx();if(!a||!buf||playing)return;src=a.createBufferSource();src.buffer=buf;src.loop=true;gn=a.createGain();gn.gain.value=0;src.connect(gn);gn.connect(a.destination);src.start();playing=true}
+function stopLoop(){if(src){try{src.stop()}catch(e){}try{src.disconnect()}catch(e){}}playing=false}
+function setLevel(l){
+  if(l>0.05){if(!playing)startLoop();if(gn)gn.gain.setTargetAtTime(Math.min(1,l),AC.currentTime,.04);lastLoud=Date.now()}
+  else if(playing){gn.gain.setTargetAtTime(0,AC.currentTime,.06);if(Date.now()-lastLoud>350)stopLoop()}
+}
+var shakeE=0;
+// Navigation
+function show(id){if(id!=="bell")stopLoop();stopFx();document.querySelectorAll(".screen").forEach(function(s){s.classList.remove("on")});document.getElementById(id).classList.add("on");active=id}
+document.querySelectorAll("[data-go]").forEach(function(b){b.onclick=function(){
+  var id=b.getAttribute("data-go");ctx();show(id);
+  if(id==="bell"){initAudio();enableMotion()}if(id==="malar")startFlowers();
+}});
+document.querySelectorAll(".back").forEach(function(b){b.onclick=function(){show("home")}});
+// Bell physics: pendulum; clapper strikes at each swing extreme
+var wrap=document.getElementById("bellWrap"),ang=0,vel=0,prevX=null,lastRing=0,motionOn=false;
+function push(v){vel+=v;if(vel>.5)vel=.5;if(vel<-.5)vel=-.5}
+function onMotion(e){
+  var g=e.accelerationIncludingGravity;if(!g||active!=="bell")return;
+  var x=g.x||0;if(prevX===null){prevX=x;return}
+  var d=x-prevX;prevX=x;if(Math.abs(d)>1.2){push(-d*.012);shakeE=Math.min(1.2,shakeE+Math.abs(d)*.05)}
+}
+function enableMotion(){
+  if(motionOn)return;
+  function on(){window.addEventListener("devicemotion",onMotion);motionOn=true}
+  if(typeof DeviceMotionEvent!=="undefined"&&typeof DeviceMotionEvent.requestPermission==="function"){
+    DeviceMotionEvent.requestPermission().then(function(s){if(s==="granted")on();else document.getElementById("bhint").textContent="Motion permission கொடுங்கள் – அல்லது மணியைத் தொடுங்கள்"}).catch(function(){});
+  }else on();
+}
+wrap.addEventListener("pointerdown",function(){push(.28);shakeE=1;ctx();initAudio()});
+var pv=0;
+(function loop(){
+  vel+=-.012*ang;vel*=.972;ang+=vel;shakeE*=.9;
+  if(ang>1)ang=1;if(ang<-1)ang=-1;
+  if(pv*vel<=0&&Math.abs(ang)>.15&&navigator.vibrate&&Date.now()-lastRing>120){lastRing=Date.now();navigator.vibrate(20)}
+  pv=vel;
+  setLevel(shakeE>.12?Math.min(1,shakeE*1.3):0);
+  wrap.style.transform="rotate("+(ang*57.3)+"deg)";
+  requestAnimationFrame(loop);
+})();
+document.getElementById("cwrap").onclick=function(){var w=this;w.classList.toggle("go");document.getElementById("chint").textContent=w.classList.contains("go")?"ஆரத்தி சுற்றுகிறது… நிறுத்த தொடுங்கள்":"தொட்டால் ஆரத்தி சுற்றும் 🔥"};
+
+// ---- extra effects ----
+var fx=[];function reg(n){fx.push(n);return n}
+function stopFx(){fx.forEach(function(n){try{n.stop()}catch(e){}try{n.disconnect()}catch(e){}});fx=[];conchOn=false;document.getElementById("sangu").classList.remove("blow")}
+function noiseBuf(a){var b=a.createBuffer(1,a.sampleRate,a.sampleRate),d=b.getChannelData(0);for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b}
+function reverb(a,src){var dl=a.createDelay(1);dl.delayTime.value=.17;var fb=a.createGain();fb.gain.value=.38;var w=a.createGain();w.gain.value=.35;
+  src.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(w);w.connect(a.destination)}
+// Conch
+var conchOn=false;
+function blowConch(){
+  var a=ctx();if(!a)return;stopFx();conchOn=true;var t=a.currentTime,D=4.4;
+  var out=a.createGain();out.gain.setValueAtTime(0,t);out.gain.linearRampToValueAtTime(.5,t+.7);out.gain.setValueAtTime(.5,t+D-1.2);out.gain.linearRampToValueAtTime(0,t+D);
+  var lp=a.createBiquadFilter();lp.type="lowpass";lp.frequency.setValueAtTime(700,t);lp.frequency.linearRampToValueAtTime(1700,t+1);lp.Q.value=3;
+  var pk=a.createBiquadFilter();pk.type="peaking";pk.frequency.value=620;pk.gain.value=9;pk.Q.value=1.5;
+  lp.connect(pk);pk.connect(out);out.connect(a.destination);reverb(a,out);
+  var lfo=a.createOscillator();lfo.frequency.value=5.2;var lg=a.createGain();lg.gain.value=3;lfo.connect(lg);lfo.start(t);lfo.stop(t+D+.1);reg(lfo);
+  [[1,"sawtooth",.5],[1.004,"sawtooth",.35],[2.003,"square",.12],[.5,"sine",.25]].forEach(function(p){
+    var o=a.createOscillator();o.type=p[1];o.frequency.setValueAtTime(205*p[0],t);o.frequency.exponentialRampToValueAtTime(234*p[0],t+.45);
+    lg.connect(o.frequency);var g=a.createGain();g.gain.value=p[2];o.connect(g);g.connect(lp);o.start(t);o.stop(t+D+.1);reg(o)});
+  var n=a.createBufferSource();n.buffer=noiseBuf(a);n.loop=true;var bp=a.createBiquadFilter();bp.type="bandpass";bp.frequency.value=1800;var ng=a.createGain();ng.gain.value=.09;
+  n.connect(bp);bp.connect(ng);ng.connect(out);n.start(t);n.stop(t+D);reg(n);
+  var sg=document.getElementById("sangu");sg.classList.add("blow");if(navigator.vibrate)navigator.vibrate([200,60,500]);
+  setTimeout(function(){if(conchOn){sg.classList.remove("blow");conchOn=false}},D*1000);
+}
+document.getElementById("sgw").onclick=blowConch;
+// Flowers
+var cv=document.getElementById("fc"),c2=cv.getContext("2d"),P=[],fRun=false,COL=["#f59e0b","#fb923c","#ef4444","#ec4899","#fbbf24","#f9a8d4","#ffffff"],down=false;
+function fsize(){var r=window.devicePixelRatio||1;cv.width=cv.clientWidth*r;cv.height=cv.clientHeight*r;c2.setTransform(r,0,0,r,0,0)}
+function burst(x,y,n,up){for(var i=0;i<n&&P.length<350;i++)P.push({x:x+(Math.random()-.5)*30,y:y,vx:(Math.random()-.5)*(up?6:1.5),vy:up?-(2+Math.random()*6):Math.random()*1.5,r:Math.random()*6.28,vr:(Math.random()-.5)*.14,s:7+Math.random()*7,c:COL[i%COL.length],ph:Math.random()*6.28})}
+function startFlowers(){fsize();P=[];for(var i=0;i<70;i++)burst(Math.random()*cv.clientWidth,-10-Math.random()*cv.clientHeight*.6,1,false);if(!fRun){fRun=true;requestAnimationFrame(ftick)}}
+function ftick(){
+  if(active!=="malar"){fRun=false;return}
+  var W=cv.clientWidth,H=cv.clientHeight;c2.clearRect(0,0,W,H);
+  for(var i=P.length-1;i>=0;i--){var p=P[i];p.vy=Math.min(p.vy+.07,2.4);p.vx*=.985;p.ph+=.05;p.x+=p.vx+Math.sin(p.ph)*.7;p.y+=p.vy;p.r+=p.vr;
+    if(p.y>H+20){P.splice(i,1);continue}
+    c2.save();c2.translate(p.x,p.y);c2.rotate(p.r);c2.scale(1,.55+.45*Math.abs(Math.sin(p.ph)));
+    c2.fillStyle=p.c;c2.globalAlpha=.95;c2.beginPath();c2.ellipse(0,0,p.s,p.s*.5,0,0,6.28);c2.fill();
+    c2.fillStyle="rgba(255,255,255,.35)";c2.beginPath();c2.ellipse(-p.s*.2,0,p.s*.4,p.s*.2,0,0,6.28);c2.fill();c2.restore()}
+  requestAnimationFrame(ftick);
+}
+function pt(e){var r=cv.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+cv.addEventListener("pointerdown",function(e){down=true;var q=pt(e);burst(q[0],q[1],24,true);if(navigator.vibrate)navigator.vibrate(10)});
+cv.addEventListener("pointermove",function(e){if(down){var q=pt(e);burst(q[0],q[1],3,true)}});
+cv.addEventListener("pointerup",function(){down=false});
+window.addEventListener("resize",function(){if(active==="malar")fsize()});
+// Lamps
+[["d1l"],["d2l"]].forEach(function(x){var l=document.getElementById(x[0]);l.onclick=function(){l.querySelector(".flame").classList.toggle("off")}});
+</script></body></html>
